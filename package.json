@@ -1,0 +1,25 @@
+{
+  "name": "qurantester",
+  "version": "1.0.0",
+  "description": "A website to create custom random Quranic tests easily and conveniently.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibrahim-ashraf/qurantester.git"
+  },
+  "author": "Ibrahim Ashraf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ibrahim-ashraf/qurantester/issues"
+  },
+  "homepage": "https://github.com/ibrahim-ashraf/qurantester#readme",
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.3",
+    "docx": "^8.5.0",
+    "mongodb": "^6.8.0",
+    "node-fetch": "^2.7.0"
+  }
+}

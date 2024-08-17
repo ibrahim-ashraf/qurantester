@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="صفحة الاتصال الخاصة بموقع مختبر القرآن الكريم.">
+  <meta name="author" content="مختبر القرآن الكريم">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="اتصل بنا - مختبر القرآن الكريم">
+  <meta property="og:description" content="صفحة الاتصال الخاصة بموقع مختبر القرآن الكريم.">
+
+  <meta name="twitter:title" content="اتصل بنا - مختبر القرآن الكريم">
+  <meta name="twitter:description" content="صفحة الاتصال الخاصة بموقع مختبر القرآن الكريم.">
+
+  <title>اتصل بنا - مختبر القرآن الكريم</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+
+  <header>
+    <div id="nav-container"></div>
+  </header>
+
+  <main>
+
+    <h1>اتصل بنا</h1>
+    <p>يمكنك الاتصال بنا إذا كان لديك أي تعليقات أو اقتراحات أو استفسارات وغير ذلك. يرجى ملء النموذج أدناه، وسنرد عليك في أقرب وقت ممكن.</p>
+
+    <section class="contact-form">
+      <h2>نموذج الاتصال</h2>
+      <form name="contact" id="contact-form" action="/.netlify/functions/submit" method="POST">
+        <input type="text" name="first-name" id="first-name-input" placeholder="الاسم الأول:" required><br>
+        <input type="text" name="last-name" id="last-name-input" placeholder="الاسم الأخير:" required><br>
+        <input type="email" name="email" id="email-input" placeholder="البريد الإلكتروني:" required><br>
+        <label for="subject-select">الموضوع:</label>
+        <select name="subject" id="subject-select" required>
+          <option value="استفسار">استفسار</option>
+          <option value="اقتراح">اقتراح</option>
+          <option value="شكوى">شكوى</option>
+          <option value="لا شيء مما سبق">لا شيء مما سبق</option>
+        </select><br>
+        <textarea name="message" id="message-input" placeholder="الرسالة:" rows="4" required></textarea><br>
+        <div class="g-recaptcha" data-sitekey="6LeogSgqAAAAAF2IEL96zGwpQITNu_frnPF76do5"></div>
+        <input type="submit" id="submit-button" value="إرسال">
+      </form>
+    </section>
+
+    <section class="social-media">
+      <h2>تابعنا على وسائل التواصل الاجتماعي</h2>
+      <p>لدينا فقط حاليا صفحة على فيسبوك. تابعها للحصول على التحديثات.</p>
+
+      <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fquran.tester&tabs=timeline%2Cevents%2Cmessages&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=872730927130273" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 مختبر القرآن الكريم. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <script src="loadNav.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+    document.getElementById('subject-select').selectedIndex = -1;
+
+    document.getElementById('contact-form').addEventListener('submit', event => {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData);
+
+      const adminEmail = {
+        to: 'ibrahimashrafabdo@gmail.com',
+        subject: 'بيانات جديدة من نموذج الاتصال - مختبر القرآن الكريم',
+        text: `بيانات جديدة من نموذج الاتصال - مختبر القرآن الكريم:\n\n${JSON.stringify(data, null, 2)}`,
+        html: `
+      <h1>بيانات جديدة من نموذج الاتصال - مختبر القرآن الكريم</h1>
+      <pre>${JSON.stringify(data, null, 2)}</pre>
+      `
+      };
+
+      const userEmail = {
+        to: data.email,
+        subject: 'تم استلام رسالتك - مختبر القرآن الكريم',
+        text: `السلام عليكم ${data.first - name}،\nشكرًا لك على تواصلك مع فريق موقع مختبر القرآن الكريم. لقد استلمنا رسالتك ونسعد بتواصلك معنا. فريقنا سيقوم بمراجعة رسالتك والرد عليك في أقرب وقت ممكن. إليك البيانات المرسَلة إلينا:\n\nالاسم الأول: (${data.first - name})\nاسم العائلة: (${data.last - name})\nالبريد الإلكتروني: ${data.email}\nالموضوع: ${data.subject}\nالرسالة: "${data.message}"\n\nنحن نقدر اهتمامك وثقتك في خدماتنا. إذا كان لديك أمر عاجل أو تحتاج إلى مزيد من المساعدة، يرجى في الرد على هذه الرسالة الإلكترونية.\n\nمع أطيب التحيات،\nفريق موقع مختبر القرآن الكريم`,
+        html: `
+            <h1 style="color: #009688; font-family: 'Arial', sans-serif;">السلام عليكم ورحمة الله وبركاته ${data['first-name']}،</h1>
+            <p style="font-family: 'Arial', sans-serif; color: #333;">شكرًا لك على تواصلك مع فريق موقع مختبر القرآن الكريم. لقد استلمنا رسالتك ونسعد بتواصلك معنا. فريقنا سيقوم بمراجعة رسالتك والرد عليك في أقرب وقت ممكن. إليك البيانات المرسَلة إلينا:</p>
+            <p style="font-family: 'Arial', sans-serif; color: #333;">
+              <strong>الاسم الأول:</strong> ${data['first-name']}<br>
+              <strong>اسم العائلة:</strong> ${data['last-name']}<br>
+              <strong>البريد الإلكتروني:</strong> ${data.email}<br>
+              <strong>الموضوع:</strong> ${data.subject}<br>
+              <strong>الرسالة:</strong> "${data.message}"
+            </p>
+            <p style="font-family: 'Arial', sans-serif; color: #333;">نحن نقدر اهتمامك وثقتك في خدماتنا. إذا كان لديك أمر عاجل أو تحتاج إلى مزيد من المساعدة، يرجى الرد على هذه الرسالة الإلكترونية.</p>
+            <p style="font-family: 'Arial', sans-serif; color: #333;">مع أطيب التحيات،<br>فريق موقع مختبر القرآن الكريم</p>
+          `
+      };
+
+      submitForm(data, 'contact_form', adminEmail, userEmail)
+        .then(result => {
+          if (!result.error) {
+            alert('تم إرسال رسالتك إلينا. سنرد على استفسارك في أسرع وقت ممكن. إذا كان اقتراحًا، فسنتواصل معك إذا دعت الحاجة.');
+          }
+        })
+        .catch(error => {
+          if (error.message === 'server') {
+            alert('حدث خطأ في الخادم. يرجى التحقق من حل تحدي reCAPTCHA أو إعادة المحاولة لاحقًا.');
+          } else {
+            alert('تعذر الاتصال بالخادم. تأكد من اتصالك بالإنترنت وحاول مرة أخرى.');
+          }
+        });
+    });
+  </script>
+</body>
+
+</html>

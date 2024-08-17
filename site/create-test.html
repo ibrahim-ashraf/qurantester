@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="أنشئ اختبارك الأول باستخدام موقع مختبر القرآن الكريم. حدد نطاق السور والآيات وعدد الأسئلة وخصص نطاقاتها وسترى الاختبار أمامك على الفور.">
+  <meta name="author" content="مختبر القرآن الكريم">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="إنشاء اختبار - مختبر القرآن الكريم">
+  <meta property="og:description" content="أنشئ اختبارك الأول باستخدام موقع مختبر القرآن الكريم. حدد نطاق السور والآيات وعدد الأسئلة وخصص نطاقاتها وسترى الاختبار أمامك على الفور.">
+
+  <meta name="twitter:title" content="إنشاء اختبار - مختبر القرآن الكريم">
+  <meta name="twitter:description" content="أنشئ اختبارك الأول باستخدام موقع مختبر القرآن الكريم. حدد نطاق السور والآيات وعدد الأسئلة وخصص نطاقاتها وسترى الاختبار أمامك على الفور.">
+
+  <title>إنشاء اختبار - مختبر القرآن الكريم</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <div id="nav-container"></div>
+  </header>
+
+  <main>
+
+    <h1>إنشاء اختبار</h1>
+    <p>آخر تحديث: السبت، 16 أغسطس 2024.</p>
+    <p>يمكنك إنشاء الاختبارات من هذه الصفحة. تفضل بزيارة <a href="user-guide.html">دليل المستخدم</a> إذا احتجت إلى تفاصيل أي خطوة موضحة هنا.</p>
+
+    <section>
+      <h2>إنشاء الاختبار</h2>
+      <button id="save-test-settings-button">حفظ إعدادات الاختبار</button><br>
+      <button id="restore-test-settings-button">استعادة إعدادات الاختبار</button>
+      <form>
+        <label for="from-surah-select">من سورة: </label>
+        <select id="from-surah-select"></select><br>
+
+        <input type="number" id="from-ayah-start-input" min="1" placeholder="من آية: "><br>
+        <input type="number" id="to-ayah-start-input" min="1" placeholder="إلى آية: "><br>
+
+        <label for="to-surah-select">إلى سورة: </label>
+        <select id="to-surah-select"></select><br>
+
+        <input type="number" id="from-ayah-end-input" min="1" placeholder="من آية: "><br>
+        <input type="number" id="to-ayah-end-input" min="1" placeholder="إلى آية: "><br>
+
+        <input type="text" name="student-name" id="student-name-input" placeholder="اسم الطالب: " required><br>
+
+        <input type="number" id="questions-count-input" min="1" placeholder="عدد الأسئلة: "><br>
+        <label for="customize-questions-checkbox">تخصيص كل سؤال على حدة</label>
+        <input type="checkbox" id="customize-questions-checkbox"><br>
+
+        <div id="customize-questions-container" style="display: none;">
+          <h3>تخصيص الأسئلة</h3>
+          <div id="customize-questions-fields"></div>
+        </div>
+        <input type="submit" id="create-test-button" value="إنشاء اختبار" disabled><br>
+      </form>
+
+      <button id="save-test-as-word-button" disabled>حفظ الاختبار كملف Word</button>
+    </section>
+
+    <section>
+      <h2>قائمة الأسئلة</h2>
+      <button id="add-questions-button" style="display: none;">إضافة أسئلة</button>
+      <table>
+        <thead>
+          <tr>
+            <th>رقم السؤال</th>
+            <th>اسم السورة</th>
+            <th>رقم الآية</th>
+            <th>نص الآية</th>
+            <th>تغيير السؤال</th>
+            <th>حذف السؤال</th>
+          </tr>
+        </thead>
+        <tbody id="questions-table-body"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 مختبر القرآن الكريم. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <script src="loadNav.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+    const testDeleteConfirmMessage = 'سيتم حذف الاختبار الحالي إذا أنشأت واحدا جديدا. هل تريد المتابعة؟';
+    const testCreatedMessage = 'تم إنشاء الاختبار بنجاح!';
+    const questionsAddedMessage = 'تم إضافة الأسئلة بنجاح!';
+    const questionChangeButtonText = 'تغيير';
+    const questionDeleteButtonText = 'حذف';
+    const questionChangedMessage = 'تم تغيير السؤال بنجاح!';
+    const questionDeleteConfirmMessage = 'هل تريد حذف السؤال رقم #؟';
+    const questionDeletedMessage = 'تم حذف السؤال بنجاح!';
+    const testSettingsSavedMessage = 'تم حفظ إعدادات الاختبار بنجاح!';
+    const testSettingsRestoredMessage = 'تم استعادة الإعدادات بنجاح!';
+    const noTestSettingsSavedMessage = 'لا توجد إعدادات محفوظة.';
+
+    document.getElementById('save-test-as-word-button').addEventListener('click', async () => {
+      try {
+        await saveTestAsWord();
+      } catch (error) {
+        if (error.message.includes('HTTP error')) {
+          alert('حدث خطأ أثناء الاتصال بالخادم. يرجى المحاولة مرة أخرى.');
+        } else {
+          alert('حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.');
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
