@@ -642,6 +642,5 @@ questionsCountInput.addEventListener('input', event => {
 customizeQuestionsCheckbox.addEventListener('change', toggleCustomizeQuestionsContainer);
 createTestButton.addEventListener('click', createTest);
 addQuestionsButton.addEventListener('click', createTest);
-saveTestAsWordButton.addEventListener('click', saveTestAsWord);
 saveTestSettingsButton.addEventListener('click', saveTestSettings);
 restoreTestSettingsButton.addEventListener('click', restoreTestSettings);
