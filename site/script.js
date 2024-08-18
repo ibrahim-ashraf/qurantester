@@ -412,7 +412,7 @@ function changeQuestion(questionIndex) {
 
   if (customizeQuestionsCheckbox.checked) {
     fromSurahValue = parseInt(document.getElementById(`custom-from-surah-select-${questionIndex}`).value);
-    const fromAyahStartValue = parseInt(document.getElementById(`custom-from-ayah-start-input-${questionIndex}`).value);
+    fromAyahStartValue = parseInt(document.getElementById(`custom-from-ayah-start-input-${questionIndex}`).value);
     toAyahStartValue = parseInt(document.getElementById(`custom-to-ayah-start-input-${questionIndex}`).value);
     toSurahValue = parseInt(document.getElementById(`custom-to-surah-select-${questionIndex}`).value);
     fromAyahEndValue = parseInt(document.getElementById(`custom-from-ayah-end-input-${questionIndex}`).value);
