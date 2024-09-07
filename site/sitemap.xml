@@ -6,23 +6,23 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
   <url>
-    <loc>https://qurantester.info/</loc>
-    <lastmod>2024-08-17T13:12:32+00:00</lastmod>
+    <loc>https://www.qurantester.info/</loc>
+    <lastmod>2024-09-07T03:00:13+00:00</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://qurantester.info/create-test.html</loc>
-    <lastmod>2024-08-17T13:12:32+00:00</lastmod>
+    <loc>https://www.qurantester.info/create-test</loc>
+    <lastmod>2024-09-07T03:00:13+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://qurantester.info/user-guide.html</loc>
-    <lastmod>2024-08-17T13:12:32+00:00</lastmod>
+    <loc>https://www.qurantester.info/user-guide</loc>
+    <lastmod>2024-09-07T03:00:13+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
-    <loc>https://qurantester.info/contact-us.html</loc>
-    <lastmod>2024-08-17T13:12:32+00:00</lastmod>
+    <loc>https://www.qurantester.info/contact-us</loc>
+    <lastmod>2024-09-07T03:00:13+00:00</lastmod>
     <priority>0.51</priority>
   </url>
 </urlset>
