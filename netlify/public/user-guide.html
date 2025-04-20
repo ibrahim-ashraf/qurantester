@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="دليل المستخدم لموقع مختبر القرآن الكريم.">
+  <meta name="author" content="مختبر القرآن الكريم">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="دليل المستخدم - مختبر القرآن الكريم">
+  <meta property="og:description" content="دليل المستخدم لموقع مختبر القرآن الكريم.">
+
+  <meta name="twitter:title" content="دليل المستخدم - مختبر القرآن الكريم">
+  <meta name="twitter:description" content="دليل المستخدم لموقع مختبر القرآن الكريم.">
+
+  <title>دليل المستخدم - مختبر القرآن الكريم</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div id="nav-container"></div>
+  </header>
+
+  <main>
+
+    <h1>دليل المستخدم - مختبر القرآن الكريم</h1>
+
+    <h2>المحتويات</h2>
+    <ul>
+      <li><a href="#intro">مقدمة</a></li>
+      <li><a href="#create-test">إنشاء اختبار</a></li>
+      <li><a href="#test-settings">إعدادات الاختبار</a></li>
+      <li><a href="#export">تصدير الاختبار</a></li>
+    </ul>
+
+    <section id="intro">
+      <h2>مقدمة</h2>
+      <p>مختبر القرآن الكريم هو موقع يساعدك على إنشاء اختبارات القرآن الكريم بسهولة.</p>
+    </section>
+
+    <section id="create-test">
+      <h2>إنشاء اختبار</h2>
+      <ol>
+        <li>اختر نطاق السور والآيات:
+          <ul>
+            <li>حدد السورة وأرقام الآيات للبداية والنهاية</li>
+            <li>يمكنك تحديد نطاق آيات مختلف لكل سؤال</li>
+          </ul>
+        </li>
+        <li>حدد عدد الأسئلة المطلوبة</li>
+        <li>اختر إجمالي الدرجات (اختياري):
+          <ul>
+            <li>فعّل خيار "تحديد الدرجات"</li>
+            <li>أدخل إجمالي الدرجات المطلوب</li>
+            <li>سيتم توزيع الدرجات بالتساوي على الأسئلة</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <section id="test-settings">
+      <h2>إعدادات الاختبار</h2>
+      <h3>حفظ الإعدادات</h3>
+      <ol>
+        <li>اضغط على زر "حفظ إعدادات الاختبار"</li>
+        <li>سيتم تنزيل ملف JSON يحتوي على إعدادات الاختبار</li>
+      </ol>
+
+      <h3>استعادة الإعدادات</h3>
+      <ol>
+        <li>اضغط على زر "استعادة إعدادات الاختبار"</li>
+        <li>اختر ملف الإعدادات JSON المحفوظ مسبقاً</li>
+        <li>سيتم استعادة جميع إعدادات الاختبار</li>
+      </ol>
+    </section>
+
+    <section id="export">
+      <h2>تصدير الاختبار</h2>
+      <p>يمكنك تصدير الاختبار بتنسيق Word من خلال الضغط على زر "تصدير كملف Word".</p>
+      <p>يحتوي الملف المصدر على:</p>
+      <ul>
+        <li>أسئلة الاختبار</li>
+        <li>درجة كل سؤال (إذا تم تحديد الدرجات)</li>
+        <li>التقدير والنسبة المئوية التي حصل عليها الطالب (إذا تم تعيين الدرجات)</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2024-2025 مختبر القرآن الكريم. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Load navigation
+    fetch('nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('nav-container').innerHTML = data;
+      });
+  </script>
+</body>
+
+</html>

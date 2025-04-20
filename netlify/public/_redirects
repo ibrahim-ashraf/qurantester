@@ -1,0 +1,4 @@
+https://qurantester.netlify.app/* https://www.qurantester.info/:splat 301!
+https://qurantester.info/* https://www.qurantester.info/:splat 301!
+https://competitions.qurantester.info/* /competitions/:splat 200
+https://www.qurantester.info/competitions/* https://competitions.qurantester.info/:splat 301!
