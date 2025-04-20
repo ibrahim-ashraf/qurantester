@@ -639,6 +639,10 @@ function updateQuestionScore(questionIndex, newScore) {
 
   // إعادة عرض الجدول لتحديث القيم
   displayQuestions();
+  const newInput = questionsTableBody.rows[questionIndex].querySelector('input[type="number"]');
+  newInput.blur();
+  newInput.focus();
+  newInput.select();
 }
 
 function changeQuestion(questionIndex) {
