@@ -593,7 +593,7 @@ function displayQuestions() {
                max="${maxScore}"
                step="0.25"
                style="width: 60px;"
-               onchange="updateQuestionScore(${index}, this.value)"
+               oninput="updateQuestionScore(${index}, this.value)"
                placeholder="0"
                >/${maxScore}
       </td>
@@ -636,7 +636,6 @@ function updateQuestionScore(questionIndex, newScore) {
 
   // تحديث درجة السؤال
   questionsList[questionIndex].score = newScore;
-  alert(`تم تحديث درجة السؤال ${questionIndex + 1} إلى ${newScore}`);
 
   // إعادة عرض الجدول لتحديث القيم
   displayQuestions();
