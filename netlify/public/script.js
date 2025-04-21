@@ -587,13 +587,15 @@ function displayQuestions() {
     const maxScore = parseFloat(totalScoresInput.value) / questionsList.length;
     const scoreInput = showScores ? `
       <td>
-        <input type="number" 
-               value="${question.score || ''}"
-               min="0" 
-               max="${maxScore}"
-               step="0.25"
+        <input type="text"
+               inputmode="decimal"
+               pattern="[0-9]*[.]?[0-9]*"
+               value="${maxScore}"
                style="width: 60px;"
-               oninput="updateQuestionScore(${index}, this.value)"
+               onkeydown="handleScoreKeydown(event)"
+               oninput="updateQuestionScore(${index}, this)"
+               data-max="${maxScore}"
+               data-step="0.25"
                placeholder="0"
                >/${maxScore}
       </td>
@@ -611,20 +613,15 @@ function displayQuestions() {
     </tr>
     `;
     questionsTableBody.innerHTML += HTMLTableRow;
-
-    // تعيين قيمة الدرجة إذا كانت موجودة
-    if (showScores && question.score) {
-      const input = questionsTableBody.rows[index].querySelector('input[type="number"]');
-      input.value = question.score;
-    }
   });
 
   addQuestionsButton.style.display = 'block';
 }
 
 // تعديل دالة updateQuestionScore لتأخذ في الاعتبار الدرجة القصوى للسؤال
-function updateQuestionScore(questionIndex, newScore) {
-  newScore = newScore === '' ? 0 : parseFloat(newScore);
+function updateQuestionScore(questionIndex, scoreInput) {
+  let newScore = scoreInput.value;
+  newScore = parseFloat(newScore) || 0;
   const maxScore = parseFloat(totalScoresInput.value) / questionsList.length;
 
   // التحقق من حدود الدرجة
@@ -634,15 +631,46 @@ function updateQuestionScore(questionIndex, newScore) {
     newScore = 0;
   }
 
-  // تحديث درجة السؤال
+  // تحديث درجة السؤال في القائمة والحقل
   questionsList[questionIndex].score = newScore;
+  scoreInput.value = newScore;
 
-  // إعادة عرض الجدول لتحديث القيم
-  displayQuestions();
-  const newInput = questionsTableBody.rows[questionIndex].querySelector('input[type="number"]');
-  newInput.blur();
-  newInput.focus();
-  newInput.select();
+  // تحديث عرض الدرجات الإجمالية
+  const scoresSummary = document.getElementById('scores-summary');
+  if (scoresSummary) {
+    let totalScore = questionsList.reduce((sum, q) => sum + (parseFloat(q.score) || 0), 0);
+    const totalPossibleScore = parseFloat(totalScoresInput.value);
+    const percentage = ((totalScore / totalPossibleScore) * 100).toFixed(2);
+    const grade = calculateGrade(percentage);
+
+    scoresSummary.innerHTML = `
+        <div class="scores-info">
+          <p>مجموع الدرجات: ${totalScore} من ${totalPossibleScore}</p>
+          <p>النسبة المئوية: ${percentage}%</p>
+          <p>التقدير: ${grade}</p>
+        </div>
+      `;
+  }
+}
+
+function handleScoreKeydown(event) {
+  if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+    event.preventDefault();
+
+    const input = event.target;
+    const step = parseFloat(input.dataset.step);
+    const max = parseFloat(input.dataset.max);
+    let value = parseFloat(input.value) || 0;
+
+    if (event.key === 'ArrowUp') {
+      value = Math.min(value + step, max);
+    } else {
+      value = Math.max(value - step, 0);
+    }
+
+    input.value = value;
+    input.dispatchEvent(new Event('input'));
+  }
 }
 
 function changeQuestion(questionIndex) {
