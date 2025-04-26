@@ -590,7 +590,7 @@ function displayQuestions() {
         <input type="text"
                inputmode="decimal"
                pattern="[0-9]*[.]?[0-9]*"
-               value="${maxScore}"
+               value="${question.score === 0 ? maxScore : question.score}"
                style="width: 60px;"
                onkeydown="handleScoreKeydown(event)"
                oninput="updateQuestionScore(${index}, this)"
